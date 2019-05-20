@@ -20,7 +20,7 @@ class MyListsContainer extends Component {
   render() {
     const { userLists } = this.state;
     return (
-      <div className="ui segment">
+      <div className="ui segment" style={{ borderColor: (255, 255, 255) }}>
         {userLists.map(list => {
           return (
             <div className="ui segment" key={list.id}>

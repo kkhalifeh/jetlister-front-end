@@ -24,7 +24,7 @@ class ListFormContainer extends Component {
             formatted_address: data.result.formatted_address,
             formatted_phone_number: data.result.formatted_phone_number,
             name: data.result.name,
-            photo_ref: data.result.photos[0].photo_reference,
+            photo_ref: data.result.photos ? data.result.photos[0].photo_reference : null,
             location: data.result.geometry.location,
             website: data.result.website,
             rating: data.result.rating,

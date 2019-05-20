@@ -23,7 +23,7 @@ class PlaceCardView extends Component {
               formatted_address: data.result.formatted_address,
               formatted_phone_number: data.result.formatted_phone_number,
               name: data.result.name,
-              photo_ref: data.result.photos[0].photo_reference,
+              photo_ref: data.result.photos ? data.result.photos[0].photo_reference : null,
               location: data.result.geometry.location,
               website: data.result.website,
               rating: data.result.rating,
@@ -36,7 +36,11 @@ class PlaceCardView extends Component {
   render() {
     const { isFetching, placeData } = this.state;
 
-    if (isFetching) return "Loading...";
+    if (isFetching) return (
+      <div className="card">
+        <div className="ui loading segment">
+        </div>
+      </div >);
 
     const { name, formatted_address, formatted_phone_number, website, place_id, photo_ref } = this.state.placeData;
     return (
