@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ViewListContainer from '../components/ViewListContainer';
+import PinnedListsContainer from './PinnedListsContainer';
 
 class MyListsContainer extends Component {
   state = {
@@ -14,7 +15,6 @@ class MyListsContainer extends Component {
         this.setState(() => {
           return { userLists: [...data] }
         })
-
       })
   }
   render() {
@@ -22,8 +22,17 @@ class MyListsContainer extends Component {
     return (
       <div className="ui segment">
         {userLists.map(list => {
-          return (<div className="ui segment"> <h4>{list.location.city}, {list.location.country}</h4> <ViewListContainer list={list} places={list.places} notes={list.place_categories} key={list.id} /> </div>)
+          return (
+            <div className="ui segment" key={list.id}>
+              <h4>{list.location.city}, {list.location.country}</h4>
+              <ViewListContainer
+                list={list}
+                places={list.places}
+                notes={list.place_categories} />
+            </div>)
         })}
+        <br />
+        <PinnedListsContainer />
       </div>
     )
   }
