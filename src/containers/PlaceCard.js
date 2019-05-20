@@ -4,17 +4,6 @@ const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
 
 class PlaceCard extends Component {
 
-  state = {
-    imgUrl: null
-  }
-
-  componentDidMount() {
-    fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=${API_KEY}&photoreference=${this.props.place.photo_ref}&maxwidth=400`, {
-      method: 'GET',
-    })
-      .then(res => res.text())
-      .then(text => this.setState({ imgUrl: text }))
-  }
 
   render() {
     const { name, formatted_address, formatted_phone_number, website, place_id, note } = this.props.place
