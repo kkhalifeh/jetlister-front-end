@@ -9,7 +9,7 @@ class ListFormContainer extends Component {
   state = {
     places: [],
     location_id: null,
-    currentuser: 31
+    currentuser: 33
   }
 
   addPlace = (id) => {
@@ -20,7 +20,7 @@ class ListFormContainer extends Component {
       .then(data => {
         this.setState({
           places: [...this.state.places, {
-            place_id: data.result.place_id,
+            google_id: data.result.place_id,
             formatted_address: data.result.formatted_address,
             formatted_phone_number: data.result.formatted_phone_number,
             name: data.result.name,
@@ -42,7 +42,7 @@ class ListFormContainer extends Component {
   removePlace = (e, id) => {
     e.preventDefault()
     const places = [...this.state.places]
-    const idx = places.findIndex(place => place.place_id === id)
+    const idx = places.findIndex(place => place.google_id === id)
     this.setState((prevState) => ({
       places: [...prevState.places.slice(0, idx), ...prevState.places.slice(idx + 1)]
     }))
@@ -50,8 +50,8 @@ class ListFormContainer extends Component {
 
   addNote = (e, id) => {
     const places = [...this.state.places]
-    const foundPlace = places.find(place => place.place_id === id)
-    const placeIdx = places.findIndex(place => place.place_id === id)
+    const foundPlace = places.find(place => place.google_id === id)
+    const placeIdx = places.findIndex(place => place.google_id === id)
     foundPlace.note = e.target.value
     places[placeIdx] = foundPlace
     this.setState({ places: places })
@@ -59,8 +59,8 @@ class ListFormContainer extends Component {
 
   selectCategory = (e, id) => {
     const places = [...this.state.places]
-    const foundPlace = places.find(place => place.place_id === id)
-    const placeIdx = places.findIndex(place => place.place_id === id)
+    const foundPlace = places.find(place => place.google_id === id)
+    const placeIdx = places.findIndex(place => place.google_id === id)
     foundPlace.category_id = e.id
     places[placeIdx] = foundPlace
     this.setState({ places: places })

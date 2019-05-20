@@ -13,7 +13,7 @@ class NavBar extends Component {
         <a name='new-list' className="item" href="new-list">
           Create List
          </a>
-        <a className="item" href="/">
+        <a name='my-lists' className="item" href="my-lists">
           My Lists
         </a>
         <div className="right menu">
