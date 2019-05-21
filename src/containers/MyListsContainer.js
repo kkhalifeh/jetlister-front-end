@@ -101,9 +101,26 @@ class MyListsContainer extends Component {
       })
   }
 
+  removeList = (e, id) => {
+    console.log(e);
+    console.log(id);
+  }
+
+
   saveList = (e) => {
     e.preventDefault()
-    console.log('save here');
+    const list = { ...this.state.editList }
+    fetch(`http://localhost:3000/lists/${this.state.editList.id}/edit`, {
+      method: 'PATCH',
+      body: JSON.stringify(list),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ editMode: false }, this.renderUserLists())
+      })
   }
 
   render() {
@@ -117,6 +134,11 @@ class MyListsContainer extends Component {
                 <div className="ui labeled button" onClick={(e) => this.editList(e, list.id)}>
                   <div className="ui button">
                     <i className="pencil alternate icon"></i> Edit List
+                  </div>
+                </div>
+                <div className="ui labeled button" onClick={(e) => this.removeList(e, list.id)}>
+                  <div className="ui red button">
+                    <i className="window close icon"></i> Delete List
                   </div>
                 </div>
                 <h4>{list.location.city}, {list.location.country}</h4>

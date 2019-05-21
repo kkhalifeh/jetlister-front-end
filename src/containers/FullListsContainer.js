@@ -8,6 +8,10 @@ class FullListsContainer extends Component {
   }
 
   componentDidMount() {
+    this.renderAllLists()
+  }
+
+  renderAllLists() {
     fetch('http://localhost:3000/all_lists')
       .then(res => res.json())
       .then(data => {
@@ -27,7 +31,7 @@ class FullListsContainer extends Component {
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-      .then(response => console.log('Success:', JSON.stringify(response)))
+      .then(response => this.renderAllLists())
   }
 
 
