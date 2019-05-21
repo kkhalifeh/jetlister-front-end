@@ -45,8 +45,9 @@ class PlaceCardView extends Component {
     const { name, formatted_address, formatted_phone_number, website, place_id, photo_ref } = this.state.placeData;
     return (
       <div className="card">
+        {this.props.editMode ? "Edit" : null}
         <div className="image">
-          <img style={{ maxHeight: 163.13 }} src={`https://maps.googleapis.com/maps/api/place/photo?key=${API_KEY}&photoreference=${photo_ref}&maxwidth=400`} />
+          <img style={{ maxHeight: 163.13 }} src={`https://maps.googleapis.com/maps/api/place/photo?key=${API_KEY}&photoreference=${this.props.photo_ref ? this.props.photo_ref : photo_ref}&maxwidth=400`} />
         </div>
         <div className="content">
           <div className="header">{name}</div>
@@ -63,7 +64,22 @@ class PlaceCardView extends Component {
           </div>
         </div>
         <div className="extra">
-          {this.props.note.length > 0 ? this.props.note[0].note : null}
+          {!this.props.editMode ? this.props.note.length > 0 ? this.props.note[0].note : null :
+            <div>
+              <div className="extra">
+                <div className="ui form">
+                  <input
+                    type="text"
+                    placeholder="Comments"
+                    onChange={(e) => this.props.editNote(e, this.props.place.id)}
+                  />
+                </div>
+              </div>
+              <div className="ui negative bottom attached button" onClick={(e) => this.props.removePlace(e, this.props.place.id)}>
+                <i className="minus icon" ></i>
+                Remove
+              </div>
+            </div>}
         </div>
       </div>
     )
