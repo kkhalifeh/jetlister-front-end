@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import ViewListContainer from '../components/ViewListContainer';
+import CityFilter from './CityFilter';
 
 class FullListsContainer extends Component {
 
   state = {
-    allLists: []
+    allLists: [],
+    filteredLists: [],
+    filter: false
+
   }
 
   componentDidMount() {
@@ -34,11 +38,21 @@ class FullListsContainer extends Component {
       .then(response => this.renderAllLists())
   }
 
+  cityFilter = (e) => {
+    console.log(e.id)
+    const allLists = { ...this.state }
+    console.log(allLists)
+    const filteredLists = allLists.allLists.filter(list => list.location.id === e.id)
+    this.setState({ allLists: filteredLists })
+  }
 
   render() {
     const { allLists } = this.state;
+    const { filteredLists } = this.state
+
     return (
       <div className="ui segment">
+        <CityFilter cityFilter={this.cityFilter} />
         {allLists.map(list => {
           return (
             <div className="ui segment" key={list.id}>

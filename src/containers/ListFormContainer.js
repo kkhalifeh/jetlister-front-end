@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import CitySelector from './CitySelectory';
 import GoogleAutoComplete from './GoogleAutoComplete';
 import MainListContainer from '../components/MainListContainer';
+import { Redirect } from 'react-router-dom';
 const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
 
 class ListFormContainer extends Component {
@@ -9,7 +10,8 @@ class ListFormContainer extends Component {
   state = {
     places: [],
     location_id: null,
-    currentuser: 35
+    currentuser: 35,
+    toDashboard: false
   }
 
   addPlace = (id) => {
@@ -69,42 +71,55 @@ class ListFormContainer extends Component {
   saveList = (e) => {
     e.preventDefault()
     const list = { ...this.state }
-    e.preventDefault()
-    fetch("http://localhost:3000/lists/create", {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(list), // data can be `string` or {object}!
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-      .then(response => console.log('Success:', JSON.stringify(response)))
+    if (list.places.length > 0 && list.location_id) {
+      e.preventDefault()
+      fetch("http://localhost:3000/lists/create", {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(list), // data can be `string` or {object}!
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+        .then(response => {
+          console.log('Success:', JSON.stringify(response))
+          this.setState({ toDashboard: true })
+        })
+    } else {
+      console.log("Form is empty")
+    }
+
   }
 
   render() {
-    return (
-      <div className="ui segments">
-        <div className="ui segment">
-          <CitySelector citySelector={this.citySelector} />
-        </div>
-        {this.state.places.length > 0 ?
+    if (this.state.toDashboard === true) {
+      return <Redirect to='/my-lists' />
+
+    } else {
+      return (
+        <div className="ui segments">
           <div className="ui segment">
-            <MainListContainer
-              selectCategory={this.selectCategory}
-              addNote={this.addNote}
-              places={this.state.places}
-              removePlace={this.removePlace} />
+            <CitySelector citySelector={this.citySelector} />
           </div>
-          : null}
-        <div className="ui segment">
-          <GoogleAutoComplete addPlace={this.addPlace} />
+          {this.state.places.length > 0 ?
+            <div className="ui segment">
+              <MainListContainer
+                selectCategory={this.selectCategory}
+                addNote={this.addNote}
+                places={this.state.places}
+                removePlace={this.removePlace} />
+            </div>
+            : null}
+          <div className="ui segment">
+            <GoogleAutoComplete addPlace={this.addPlace} />
+          </div>
+          <div
+            className="ui positive bottom attached button"
+            onClick={(e) => this.saveList(e)}>
+            Save
         </div>
-        <div
-          className="ui positive bottom attached button"
-          onClick={(e) => this.saveList(e)}>
-          Save
-      </div>
-      </div>
-    )
+        </div>
+      )
+    }
   }
 }
 

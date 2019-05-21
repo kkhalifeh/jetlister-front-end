@@ -102,8 +102,19 @@ class MyListsContainer extends Component {
   }
 
   removeList = (e, id) => {
-    console.log(e);
-    console.log(id);
+    e.preventDefault()
+    const list = { id: id }
+    fetch(`http://localhost:3000/lists/${id}/remove_author`, {
+      method: 'PATCH', // or 'PUT'
+      body: JSON.stringify(list), // data can be `string` or {object}!
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.renderUserLists()
+      })
   }
 
 
