@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import ViewListContainer from '../components/ViewListContainer';
 import CityFilter from './CityFilter';
+import { Link, Redirect } from 'react-router-dom';
 
 class FullListsContainer extends Component {
 
   state = {
     allLists: [],
     filteredLists: [],
-    filter: false
-
+    filter: false,
+    selecteduser: {}
   }
 
   componentDidMount() {
@@ -46,6 +47,13 @@ class FullListsContainer extends Component {
     this.setState({ allLists: filteredLists })
   }
 
+  selectUser = (e, id) => {
+    console.log(e)
+    console.log(id)
+    this.setState({ selecteduser: id })
+  }
+
+
   render() {
     const { allLists } = this.state;
     const { filteredLists } = this.state
@@ -57,7 +65,8 @@ class FullListsContainer extends Component {
           return (
             <div className="ui segment" key={list.id}>
               <h4>{list.location.city}, {list.location.country}</h4>
-              <h4>User: {list.author.first_name} {list.author.last_name}</h4>
+              <h4>{list.author.username}</h4>
+              <Link to={`/${list.author.id}`} name='user' className="ui button" onClick={(e) => this.selectUser(e, list.author.id)}>Select User</Link>
               <ViewListContainer
                 list={list}
                 places={list.places}

@@ -5,6 +5,7 @@ import ListFormContainer from './containers/ListFormContainer';
 import Dashboard from './containers/Dashboard';
 import MyListsContainer from './containers/MyListsContainer'
 import FullListsContainer from './containers/FullListsContainer';
+import UserProfile from './containers/UserProfile';
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
               <Route path='/new-list' render={(routeProps) => <ListFormContainer {...routeProps} />} />
               <Route path="/my-lists" render={(routeProps) => <MyListsContainer {...routeProps} />} />
               <Route path="/all-lists" render={(routeProps) => <FullListsContainer {...routeProps} />} />
+              <Route path="/:user" render={(routeProps) => <UserProfile {...routeProps} />} />
             </Switch>
           </div>
           <br />
