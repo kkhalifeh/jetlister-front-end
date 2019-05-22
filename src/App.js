@@ -10,7 +10,7 @@ import UserProfile from './containers/UserProfile';
 class App extends Component {
 
   state = {
-    currentuser: 31
+    currentuser: 33
   }
 
   render() {

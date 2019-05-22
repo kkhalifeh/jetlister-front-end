@@ -73,7 +73,7 @@ class FullListsContainer extends Component {
                 notes={list.place_categories} />
               <div className="ui labeled button" onClick={(e) => this.pinList(e, list.id)}>
                 <div className="ui button">
-                  <i className="heart icon"></i> Pin List
+                  <i className="thumbtack icon"></i> Pin List
                 </div>
                 <a className="ui basic label">
                   {list.pins.length}

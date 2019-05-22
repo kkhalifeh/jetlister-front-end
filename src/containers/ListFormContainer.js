@@ -10,7 +10,7 @@ class ListFormContainer extends Component {
   state = {
     places: [],
     location_id: null,
-    currentuser: 35,
+    currentuser: 33,
     toDashboard: false
   }
 
