@@ -23,8 +23,7 @@ class PlaceCard extends Component {
         </div>
         <div className="extra">
           Rating:
-       <div className="ui star rating" data-rating="4">
-          </div>
+       <div className="ui star rating" data-rating={4}></div>
         </div>
         <div className="extra">
           <CategorySelector selectCategory={(e) => this.props.selectCategory(e, place_id)} />

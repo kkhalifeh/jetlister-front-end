@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ViewListContainer from '../components/ViewListContainer';
+import UserProfileCard from './UserProfileCard';
 
 class UserProfile extends Component {
 
@@ -28,6 +29,7 @@ class UserProfile extends Component {
     } else {
       return (
         <div className="ui segment">
+          <UserProfileCard data={this.state.slecteduser ? this.state.userLists[0].author : null} lists={this.state.slecteduser ? this.state.userLists.length : null} />
           {userLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
@@ -37,10 +39,10 @@ class UserProfile extends Component {
                   list={list}
                   places={list.places}
                   notes={list.place_categories} />
-                <div className="ui labeled button" onClick={(e) => this.pinList(e, list.id)}>
+                <div className="ui labeled button" onClick={(e) => console.log(e)}>
                   <div className="ui button">
-                    <i className="heart icon"></i> Pin List
-                  </div>
+                    <i className="thumbtack icon"></i> Pin List
+                </div>
                   <a className="ui basic label">
                     {list.pins.length}
                   </a>

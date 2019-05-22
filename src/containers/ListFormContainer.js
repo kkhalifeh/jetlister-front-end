@@ -4,6 +4,8 @@ import GoogleAutoComplete from './GoogleAutoComplete';
 import MainListContainer from '../components/MainListContainer';
 import { Redirect } from 'react-router-dom';
 const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
+const CORS_LINK = "https://warm-anchorage-35403.herokuapp.com/"
+const CORS_EVERYWHERE = "https://cors-anywhere.herokuapp.com/"
 
 class ListFormContainer extends Component {
 
@@ -15,11 +17,12 @@ class ListFormContainer extends Component {
   }
 
   addPlace = (id) => {
-    fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&placeid=${id}`, {
+    fetch(`${CORS_LINK}https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&placeid=${id}`, {
       method: 'GET',
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data);
         this.setState({
           places: [...this.state.places, {
             place_id: data.result.place_id,
@@ -97,6 +100,11 @@ class ListFormContainer extends Component {
     } else {
       return (
         <div className="ui segments">
+          <div className="ui labeled button" onClick={(e) => this.setState({ toDashboard: true })}>
+            <div className="ui button">
+              <i className="times icon"></i> Cancel
+          </div>
+          </div>
           <div className="ui segment">
             <CitySelector citySelector={this.citySelector} />
           </div>

@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import ViewListContainer from '../components/ViewListContainer';
 import PinnedListsContainer from './PinnedListsContainer';
 import EditFormContainer from './EditFormContainer';
+import UserProfileCard from './UserProfileCard';
+import GoogleMap from './GoogleMap';
 const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
+const CORS_LINK = "https://warm-anchorage-35403.herokuapp.com/"
+const CORS_EVERYWHERE = "https://cors-anywhere.herokuapp.com/"
 
 class MyListsContainer extends Component {
   state = {
@@ -30,8 +34,6 @@ class MyListsContainer extends Component {
   }
 
   editList = (e, id) => {
-    console.log(e);
-    console.log(id);
     e.preventDefault()
     const userLists = [...this.state.userLists]
     const list = userLists.filter(list => list.id === id)
@@ -44,8 +46,6 @@ class MyListsContainer extends Component {
   }
 
   editNote = (e, id) => {
-    console.log(e.target.value);
-    console.log(id);
     const places = [...this.state.editList.place_categories]
     const foundPlace = places.find(place => place.place_id === id)
     const placeIdx = places.findIndex(place => place.place_id === id)
@@ -73,7 +73,7 @@ class MyListsContainer extends Component {
   }
 
   addPlace = (id) => {
-    fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&placeid=${id}`, {
+    fetch(`${CORS_LINK}https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&placeid=${id}`, {
       method: 'GET',
     })
       .then(response => response.json())
@@ -139,6 +139,7 @@ class MyListsContainer extends Component {
     if (this.state.editMode === false) {
       return (
         <div className="ui segment" style={{ borderColor: (255, 255, 255) }}>
+          {this.state.userLists.length > 0 ? <div className="ui segment"><GoogleMap userLists={this.state.userLists} /></div> : null}
           {userLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>

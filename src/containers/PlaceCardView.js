@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
+const CORS_LINK = "https://warm-anchorage-35403.herokuapp.com/"
+const CORS_EVERYWHERE = "https://cors-anywhere.herokuapp.com/"
 
 class PlaceCardView extends Component {
 
@@ -10,7 +12,7 @@ class PlaceCardView extends Component {
 
   componentDidMount() {
     const { place } = this.props;
-    fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&placeid=${place.google_id}`, {
+    fetch(`${CORS_LINK}https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&placeid=${place.google_id}`, {
       method: 'GET',
     })
       .then(response => response.json())
@@ -70,7 +72,7 @@ class PlaceCardView extends Component {
                 <div className="ui form">
                   <input
                     type="text"
-                    placeholder="Comments"
+                    placeholder={this.props.note.length > 0 ? this.props.note[0].note : "Comments"}
                     onChange={(e) => this.props.editNote(e, this.props.place.id)}
                   />
                 </div>
