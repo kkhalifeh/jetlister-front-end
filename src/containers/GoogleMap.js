@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import uuid from "uuid";
 
 const AnyReactComponent = ({ text }) => <div><i className="flag checkered red icon"></i>{text}</div>;
 
@@ -20,8 +21,8 @@ class GoogleMap extends Component {
 
   static defaultProps = {
     center: {
-      lat: 49.6330582,
-      lng: -20.4216851
+      lat: 30.939567,
+      lng: -39.980321
     },
     zoom: 0
   };
@@ -39,16 +40,12 @@ class GoogleMap extends Component {
           >
             {locations.map(location => {
               return <AnyReactComponent
+                key={uuid.v4()}
                 lat={location.latitude}
                 lng={location.longitude}
                 text={location.city}
               />
             })}
-            {/* <AnyReactComponent
-              lat={59.955413}
-              lng={30.337844}
-              text="My Marker"
-            /> */}
           </GoogleMapReact>
         </div>
       );

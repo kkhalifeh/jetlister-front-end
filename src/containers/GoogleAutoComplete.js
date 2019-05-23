@@ -16,7 +16,6 @@ class GoogleAutoComplete extends React.Component {
   handleSelect = address => {
     geocodeByAddress(address)
       .then(results => {
-        console.log(results);
         this.props.addPlace(results[0]["place_id"])
         this.setState({ address: '' })
       })

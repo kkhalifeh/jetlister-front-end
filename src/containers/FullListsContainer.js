@@ -40,16 +40,12 @@ class FullListsContainer extends Component {
   }
 
   cityFilter = (e) => {
-    console.log(e.id)
     const allLists = { ...this.state }
-    console.log(allLists)
     const filteredLists = allLists.allLists.filter(list => list.location.id === e.id)
     this.setState({ allLists: filteredLists })
   }
 
   selectUser = (e, id) => {
-    console.log(e)
-    console.log(id)
     this.setState({ selecteduser: id })
   }
 

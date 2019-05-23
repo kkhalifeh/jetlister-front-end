@@ -4,7 +4,6 @@ const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
 
 class PlaceCard extends Component {
 
-
   render() {
     const { name, formatted_address, formatted_phone_number, website, place_id, note } = this.props.place
     return (

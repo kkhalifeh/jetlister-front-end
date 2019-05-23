@@ -10,6 +10,10 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
+    this.renderUserLists()
+  }
+
+  renderUserLists = () => {
     const { user } = this.props.match.params
     fetch(`http://localhost:3000/lists/${parseInt(user)}/user_lists`)
       .then(res => res.json())
@@ -17,6 +21,20 @@ class UserProfile extends Component {
         this.setState({ slecteduser: true, userLists: data })
       })
   }
+
+  addPin = (e, id) => {
+    const pin = { list_id: id }
+    e.preventDefault()
+    fetch("http://localhost:3000/pins/create", {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(pin), // data can be `string` or {object}!
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+      .then(response => this.renderUserLists())
+  }
+
 
   render() {
     const { userLists } = this.state;
@@ -39,7 +57,7 @@ class UserProfile extends Component {
                   list={list}
                   places={list.places}
                   notes={list.place_categories} />
-                <div className="ui labeled button" onClick={(e) => console.log(e)}>
+                <div className="ui labeled button" onClick={(e) => this.addPin(e, list.id)}>
                   <div className="ui button">
                     <i className="thumbtack icon"></i> Pin List
                 </div>

@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 
 class UserProfileCard extends Component {
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   render() {
     return (
       <div className="ui cards">
