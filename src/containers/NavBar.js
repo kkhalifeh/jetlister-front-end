@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
 
+  searchUser = (e) => {
+    console.log(e.target.value);
+
+  }
+
+
 
   render() {
     return (
@@ -15,13 +21,14 @@ class NavBar extends Component {
         <div className="right menu">
           <div className="item">
             <div className="ui icon input">
-              <input type="text" placeholder="Search..." />
+              <input type="text" placeholder="Search..." onChange={this.searchUser} />
               <i className="search link icon"></i>
             </div>
           </div>
-          <a className="ui item" href="/">
+          {/* <a className="ui item" href="/">
             Logout
-          </a>
+          </a> */}
+          <Link to='/user-form' name='user-form' className="item">Sign Up</Link>
         </div>
       </div>
     )

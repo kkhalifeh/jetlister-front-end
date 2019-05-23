@@ -49,6 +49,7 @@ class MyListsContainer extends Component {
     const places = [...this.state.editList.place_categories]
     const foundPlace = places.find(place => place.place_id === id)
     const placeIdx = places.findIndex(place => place.place_id === id)
+    debugger
     foundPlace.note = e.target.value
     places[placeIdx] = foundPlace
     this.setState(prevState => ({
@@ -60,7 +61,6 @@ class MyListsContainer extends Component {
   }
 
   removePlace = (e, id) => {
-    console.log(this.state);
     e.preventDefault()
     const places = [...this.state.editList.places]
     const filteredPlaces = places.filter(place => place.id !== id)

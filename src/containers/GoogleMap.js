@@ -12,7 +12,6 @@ class GoogleMap extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     const locations = [...this.props.userLists]
     let userMap = []
     locations.forEach(location => userMap.push(location.location))
@@ -34,7 +33,6 @@ class GoogleMap extends Component {
         // Important! Always set the container height explicitly
         <div style={{ height: '50vh', width: '100%' }}>
           <GoogleMapReact
-            // bootstrapURLKeys={{ key: /* YOUR KEY HERE */ }}
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
           >
