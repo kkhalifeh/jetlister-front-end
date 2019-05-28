@@ -3,9 +3,12 @@ import CitySelector from './CitySelectory';
 import GoogleAutoComplete from './GoogleAutoComplete';
 import MainListContainer from '../components/MainListContainer';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'js-cookie'
+import headers from '../Helpers/http'
 const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
 const CORS_LINK = "https://warm-anchorage-35403.herokuapp.com/"
 const CORS_EVERYWHERE = "https://cors-anywhere.herokuapp.com/"
+
 
 class ListFormContainer extends Component {
 
@@ -76,12 +79,11 @@ class ListFormContainer extends Component {
     const list = { ...this.state }
     if (list.places.length > 0 && list.location_id) {
       e.preventDefault()
-      fetch("http://localhost:3000/lists/create", {
+      fetch("/lists/create", {
         method: 'POST', // or 'PUT'
         body: JSON.stringify(list), // data can be `string` or {object}!
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: headers(Cookies.get("X-App-CSRF-Token")),
+        credentials: "include"
       }).then(res => res.json())
         .then(response => {
           console.log('Success:', JSON.stringify(response))

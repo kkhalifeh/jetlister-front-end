@@ -7,7 +7,7 @@ class CityFilter extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/locations_filter')
+    fetch('/locations_filter')
       .then(res => res.json())
       .then(data => {
         this.setState({ locations_filter: data })

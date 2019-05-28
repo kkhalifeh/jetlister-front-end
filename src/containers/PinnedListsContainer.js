@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import ViewListContainer from '../components/ViewListContainer';
+import Cookies from 'js-cookie'
+import headers from '../Helpers/http'
 
 class PinnedListsContainer extends Component {
 
@@ -12,7 +14,7 @@ class PinnedListsContainer extends Component {
   }
 
   renderPinLists = () => {
-    fetch('http://localhost:3000/pins')
+    fetch('/pins')
       .then(res => res.json())
       .then(data => {
         this.setState(() => {
@@ -25,12 +27,11 @@ class PinnedListsContainer extends Component {
   removePin = (e, id) => {
     e.preventDefault()
     const pin = { id: id }
-    fetch(`http://localhost:3000/pins/${id}/delete`, {
+    fetch(`/pins/${id}/delete`, {
       method: 'DELETE', // or 'PUT'
       body: JSON.stringify(pin), // data can be `string` or {object}!
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: headers(Cookies.get("X-App-CSRF-Token")),
+      credentials: "include"
     })
       .then(res => res.json())
       .then(data => {

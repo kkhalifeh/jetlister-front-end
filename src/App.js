@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, withRouter, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './containers/NavBar';
 import ListFormContainer from './containers/ListFormContainer';
 import Dashboard from './containers/Dashboard';
@@ -8,6 +8,9 @@ import FullListsContainer from './containers/FullListsContainer';
 import UserProfile from './containers/UserProfile';
 import UserForm from './containers/UserForm';
 import Cookies from 'js-cookie'
+import headers from './Helpers/http'
+import auth from "./containers/auth";
+import PrivateRoute from './containers/PrivateRoute';
 
 class App extends Component {
 
@@ -16,12 +19,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/heartbit', { credentials: 'include' })
-      .then(res => {
-        Cookies.set('X-App-CSRF-Token', res.headers.get('X-App-CSRF-Token'));
-        return res.json()
-      })
-      .then((resp) => console.log(resp))
+    fetch("/heartbit", {
+      credentials: "include",
+      headers: headers(Cookies.get("X-App-CSRF-Token"))
+    }).then(resp => {
+      return resp.json()
+    }).then(data => console.log(data));
   }
 
   render() {
@@ -30,14 +33,15 @@ class App extends Component {
         <div>
           <NavBar />
           <br />
+          <Logout />
           <div className="ui center aligned container">
             <Switch>
-              <Route path='/dashboard' render={(routeProps) => <Dashboard {...routeProps} />} />
-              <Route path='/new-list' render={(routeProps) => <ListFormContainer {...routeProps} />} />
-              <Route path="/my-lists" render={(routeProps) => <MyListsContainer {...routeProps} />} />
-              <Route path="/all-lists" render={(routeProps) => <FullListsContainer {...routeProps} />} />
-              <Route path="/user-form" render={(routeProps) => <UserForm {...routeProps} />} />
-              <Route path="/:user" render={(routeProps) => <UserProfile {...routeProps} />} />
+              <PrivateRoute path='/dashboard' exact component={Dashboard} />
+              <PrivateRoute path='/new-list' component={ListFormContainer} />
+              <PrivateRoute path="/my-lists" component={MyListsContainer} />
+              <PrivateRoute path="/all-lists" component={FullListsContainer} />
+              <Route path="/user-form" component={UserForm} />
+              <PrivateRoute path="/:user" component={UserProfile} />
             </Switch>
           </div>
           <br />
@@ -47,5 +51,30 @@ class App extends Component {
     )
   }
 }
+
+
+const Logout = withRouter(({ history }) => {
+  if (!auth.isAuthenticated()) return null;
+
+  const logOut = e => {
+    e.preventDefault();
+
+    fetch('/logout', {
+      headers: headers(Cookies.get("X-App-CSRF-Token")),
+      credentials: "include",
+      method: "DELETE"
+    })
+      .then(response => response.json())
+      .then(data => {
+        auth.logout(() => history.push("/"));
+      });
+  };
+
+  return (
+    <a href="/sign-out" onClick={logOut}>
+      Log out
+    </a>
+  );
+});
 
 export default App

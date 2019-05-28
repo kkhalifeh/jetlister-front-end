@@ -3,6 +3,8 @@ import ViewListContainer from '../components/ViewListContainer';
 import PinnedListsContainer from './PinnedListsContainer';
 import EditFormContainer from './EditFormContainer';
 import UserProfileCard from './UserProfileCard';
+import Cookies from 'js-cookie'
+import headers from '../Helpers/http'
 import GoogleMap from './GoogleMap';
 const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
 const CORS_LINK = "https://warm-anchorage-35403.herokuapp.com/"
@@ -20,7 +22,7 @@ class MyListsContainer extends Component {
   }
 
   renderUserLists = () => {
-    fetch('http://localhost:3000/lists')
+    fetch('/lists')
       .then(res => res.json())
       .then(data => {
         this.setState(() => {
@@ -79,12 +81,11 @@ class MyListsContainer extends Component {
       .then(response => response.json())
       .then(data => {
         const place = { name: data.result.name, photo_ref: data.result.photos ? data.result.photos[0].photo_reference : null, google_id: data.result.place_id }
-        fetch("http://localhost:3000/places/create", {
+        fetch("/places/create", {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(place), // data can be `string` or {object}!
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          headers: headers(Cookies.get("X-App-CSRF-Token")),
+          credentials: "include"
         }).then(res => res.json())
           .then(place => {
             console.log('Success:', JSON.stringify(place))
@@ -104,12 +105,11 @@ class MyListsContainer extends Component {
   removeList = (e, id) => {
     e.preventDefault()
     const list = { id: id }
-    fetch(`http://localhost:3000/lists/${id}/remove_author`, {
+    fetch(`/lists/${id}/remove_author`, {
       method: 'PATCH', // or 'PUT'
       body: JSON.stringify(list), // data can be `string` or {object}!
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: headers(Cookies.get("X-App-CSRF-Token")),
+      credentials: "include"
     })
       .then(res => res.json())
       .then(data => {
@@ -121,12 +121,11 @@ class MyListsContainer extends Component {
   saveList = (e) => {
     e.preventDefault()
     const list = { ...this.state.editList }
-    fetch(`http://localhost:3000/lists/${this.state.editList.id}/edit`, {
+    fetch(`/lists/${this.state.editList.id}/edit`, {
       method: 'PATCH',
       body: JSON.stringify(list),
-      headers: {
-        'Content-Type': 'application/json',
-      }
+      headers: headers(Cookies.get("X-App-CSRF-Token")),
+      credentials: "include"
     })
       .then(res => res.json())
       .then(data => {

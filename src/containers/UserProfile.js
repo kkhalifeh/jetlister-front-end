@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ViewListContainer from '../components/ViewListContainer';
 import UserProfileCard from './UserProfileCard';
+import Cookies from 'js-cookie'
+import headers from '../Helpers/http'
 
 class UserProfile extends Component {
 
@@ -15,7 +17,7 @@ class UserProfile extends Component {
 
   renderUserLists = () => {
     const { user } = this.props.match.params
-    fetch(`http://localhost:3000/lists/${parseInt(user)}/user_lists`)
+    fetch(`/lists/${parseInt(user)}/user_lists`)
       .then(res => res.json())
       .then(data => {
         this.setState({ slecteduser: true, userLists: data })
@@ -25,12 +27,11 @@ class UserProfile extends Component {
   addPin = (e, id) => {
     const pin = { list_id: id }
     e.preventDefault()
-    fetch("http://localhost:3000/pins/create", {
+    fetch("/pins/create", {
       method: 'POST', // or 'PUT'
       body: JSON.stringify(pin), // data can be `string` or {object}!
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: headers(Cookies.get("X-App-CSRF-Token")),
+      credentials: "include"
     }).then(res => res.json())
       .then(response => this.renderUserLists())
   }

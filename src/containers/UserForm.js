@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Cookies from 'js-cookie'
-
-import { headers } from '../Helpers/http';
+import headers from '../Helpers/http';
+import auth from "./auth";
 
 class UserForm extends Component {
 
@@ -36,41 +36,50 @@ class UserForm extends Component {
 
 
   signUp = (e) => {
-    const { newUser } = this.state;
-    console.log(headers)
-
     e.preventDefault();
-    fetch("http://localhost:3000/sign-up", {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify({ 'sign_up': { ...newUser } }),
-      headers,
-      credentials: 'include'
-    }).then(res => {
-      Cookies.set('X-App-CSRF-Token', res.headers.get('X-App-CSRF-Token'));
-      return res.json()
+    const { newUser } = this.state;
+
+    fetch("/sign-up", {
+      headers: headers(Cookies.get("X-App-CSRF-Token")),
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({ 'sign_up': { ...newUser } })
     })
       .then(response => {
-        console.log('Success:', JSON.stringify(response.data))
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject(json);
+        });
       })
+      .then(data => console.log(data))
+      .catch(data => {
+        console.log(data)
+      });
   }
 
   logIn = (e) => {
-    const { logInUser } = this.state;
-    console.log(headers)
-
     e.preventDefault();
-    fetch("http://localhost:3000/login", {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify({ 'sign_in': { ...logInUser } }),
-      headers,
-      credentials: 'include'
-    }).then(res => {
-      Cookies.set('X-App-CSRF-Token', res.headers.get('X-App-CSRF-Token'));
-      return res.json()
+    const { from } = this.props.location;
+    const { logInUser } = this.state;
+    fetch("/login", {
+      headers: headers(Cookies.get("X-App-CSRF-Token")),
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({ 'sign_in': { ...logInUser } })
     })
       .then(response => {
-        console.log('Success:', JSON.stringify(response))
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject(json);
+        });
       })
+      .then(data => {
+        auth.login(data, () => {
+          const redirectTo = from ? from.pathname : "/";
+          this.props.history.push(redirectTo);
+        })
+      })
+      .catch(data => {
+        console.log(data)
+      });
   }
 
 

@@ -8,8 +8,6 @@ class NavBar extends Component {
 
   }
 
-
-
   render() {
     return (
       <div className="ui inverted menu">
@@ -29,6 +27,7 @@ class NavBar extends Component {
             Logout
           </a> */}
           <Link to='/user-form' name='user-form' className="item">Sign Up</Link>
+          {/* <a href='/user-form' name='user-form' className="item">Sign Up</a> */}
         </div>
       </div>
     )

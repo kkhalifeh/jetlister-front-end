@@ -9,7 +9,7 @@ class UserSearch extends Component {
   }
 
   getInfo = () => {
-    fetch(`${API_URL}`)
+    fetch(`/users`)
       .then(res => res.json())
       .then(data => {
         this.setState({

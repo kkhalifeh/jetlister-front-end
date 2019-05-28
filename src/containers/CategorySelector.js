@@ -8,7 +8,7 @@ class CategorySelector extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/categories')
+    fetch('/categories')
       .then(res => res.json())
       .then(data => {
         this.setState({ categories: data })

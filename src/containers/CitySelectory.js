@@ -8,7 +8,7 @@ class CitySelector extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/locations')
+    fetch('/locations', {})
       .then(res => res.json())
       .then(data => {
         this.setState({ locations: data })
