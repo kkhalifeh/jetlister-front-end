@@ -48,16 +48,16 @@ class MyListsContainer extends Component {
   }
 
   editNote = (e, id) => {
-    const places = [...this.state.editList.place_categories]
+    const places = [...this.state.editList.list_places]
     const foundPlace = places.find(place => place.place_id === id)
     const placeIdx = places.findIndex(place => place.place_id === id)
-    debugger
+    // debugger
     foundPlace.note = e.target.value
     places[placeIdx] = foundPlace
     this.setState(prevState => ({
       editList: {
         ...prevState.editList,
-        place_categories: places,
+        list_places: places,
       },
     }))
   }
@@ -156,7 +156,7 @@ class MyListsContainer extends Component {
                 <ViewListContainer
                   list={list}
                   places={list.places}
-                  notes={list.place_categories} />
+                  notes={list.list_places} />
               </div>)
           })}
           <br />

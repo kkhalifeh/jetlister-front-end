@@ -60,15 +60,15 @@ class PlaceCardView extends Component {
             {formatted_phone_number}
           </div>
         </div>
-        <div className="extra">
+        {/* <div className="extra">
           Rating:
        <div className="ui star rating" data-rating="4">
           </div>
-        </div>
+        </div> */}
         <div className="extra">
           {!this.props.editMode ? this.props.note.length > 0 ? this.props.note[0].note : null :
             <div>
-              <div className="extra">
+              {/* <div className="extra">
                 <div className="ui form">
                   <input
                     type="text"
@@ -76,7 +76,7 @@ class PlaceCardView extends Component {
                     onChange={(e) => this.props.editNote(e, this.props.place.id)}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="ui negative bottom attached button" onClick={(e) => this.props.removePlace(e, this.props.place.id)}>
                 <i className="minus icon" ></i>
                 Remove

@@ -41,27 +41,33 @@ class PinnedListsContainer extends Component {
 
   render() {
     const { pinnnedLists } = this.state;
-    return (
-      <div className="ui segment">
-        {pinnnedLists.map(list => {
-          return (
-            <div className="ui segment" key={list.id}>
-              <div className="ui labeled button" onClick={(e) => this.removePin(e, list.id)}>
-                <div className="ui button">
-                  <i className="thumbtack icon"></i> unPin
+    if (pinnnedLists.length > 0) {
+      return (
+        <div className="ui segment">
+          {pinnnedLists.map(list => {
+            return (
+              <div className="ui segment" key={list.id}>
+                <div className="ui labeled button" onClick={(e) => this.removePin(e, list.id)}>
+                  <div className="ui button">
+                    <i className="thumbtack icon"></i> unPin
+                  </div>
                 </div>
+                <h4>{list.list.location.city}, {list.list.location.country}</h4>
+                <h4>User: {list.list.author.first_name} {list.list.author.last_name}</h4>
+                <ViewListContainer
+                  list={list.list}
+                  places={list.list.places}
+                  notes={list.list.place_categories} />
               </div>
-              <h4>{list.list.location.city}, {list.list.location.country}</h4>
-              <h4>User: {list.list.author.first_name} {list.list.author.last_name}</h4>
-              <ViewListContainer
-                list={list.list}
-                places={list.list.places}
-                notes={list.list.place_categories} />
-            </div>
-          )
-        })}
-      </div>
-    )
+            )
+          })}
+        </div>
+      )
+
+    } else {
+      return null
+    }
+
   }
 }
 

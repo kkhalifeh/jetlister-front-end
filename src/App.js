@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch, withRouter, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, withRouter, Link, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './containers/NavBar';
 import ListFormContainer from './containers/ListFormContainer';
 import Dashboard from './containers/Dashboard';
@@ -15,10 +15,6 @@ import SignUp from './containers/SignUp';
 
 class App extends Component {
 
-  state = {
-    currentuser: 33
-  }
-
   componentDidMount() {
     fetch("/heartbit", {
       credentials: "include",
@@ -32,12 +28,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <NavBar />
-          <br />
           <Logout />
+          <PrivateRoute path='/' exact component={Dashboard} />
           <div className="ui center aligned container">
             <Switch>
-              <PrivateRoute path='/' exact component={Dashboard} />
               <PrivateRoute path='/new-list' component={ListFormContainer} />
               <PrivateRoute path="/my-lists" component={MyListsContainer} />
               <PrivateRoute path="/all-lists" component={FullListsContainer} />
@@ -46,8 +40,6 @@ class App extends Component {
               <PrivateRoute path="/:user" component={UserProfile} />
             </Switch>
           </div>
-          <br />
-          Footer
         </div>
       </Router>
     )
@@ -56,7 +48,7 @@ class App extends Component {
 
 
 const Logout = withRouter(({ history }) => {
-  if (!auth.isAuthenticated()) return null;
+  if (!auth.isAuthenticated()) return <NavBar />;
 
   const logOut = e => {
     e.preventDefault();
@@ -73,10 +65,17 @@ const Logout = withRouter(({ history }) => {
   };
 
   return (
-    <a href="/sign-out" onClick={logOut}>
-      Log out
-    </a>
-  );
+    <div className="ui inverted menu" style={{ margin: 0 }}>
+      <Link to='/' name='home' className="item">Home</Link>
+      <Link to='/new-list' name='new-list' className="item">Create List</Link>
+      <Link to='/my-lists' name='my-lists' className="item">My Lists</Link>
+      <Link to='/all-lists' name='all-lists' className="item">All Lists</Link>
+
+      <div className="right menu">
+        <a href="/sign-out" onClick={logOut} className="item">Log Out</a>
+      </div>
+    </div>
+  )
 });
 
 export default App
