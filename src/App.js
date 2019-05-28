@@ -11,6 +11,7 @@ import Cookies from 'js-cookie'
 import headers from './Helpers/http'
 import auth from "./containers/auth";
 import PrivateRoute from './containers/PrivateRoute';
+import SignUp from './containers/SignUp';
 
 class App extends Component {
 
@@ -36,11 +37,12 @@ class App extends Component {
           <Logout />
           <div className="ui center aligned container">
             <Switch>
-              <PrivateRoute path='/dashboard' exact component={Dashboard} />
+              <PrivateRoute path='/' exact component={Dashboard} />
               <PrivateRoute path='/new-list' component={ListFormContainer} />
               <PrivateRoute path="/my-lists" component={MyListsContainer} />
               <PrivateRoute path="/all-lists" component={FullListsContainer} />
               <Route path="/user-form" component={UserForm} />
+              <Route path="/sign-up" component={SignUp} />
               <PrivateRoute path="/:user" component={UserProfile} />
             </Switch>
           </div>

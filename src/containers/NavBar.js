@@ -26,7 +26,8 @@ class NavBar extends Component {
           {/* <a className="ui item" href="/">
             Logout
           </a> */}
-          <Link to='/user-form' name='user-form' className="item">Sign Up</Link>
+          <Link to='/user-form' name='user-form' className="item">Log In</Link>
+          <Link to='/sign-up' name='sign-up' className="item">Sign Up</Link>
           {/* <a href='/user-form' name='user-form' className="item">Sign Up</a> */}
         </div>
       </div>
