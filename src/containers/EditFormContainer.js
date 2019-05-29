@@ -19,7 +19,7 @@ class EditFormContainer extends Component {
           editNote={this.props.editNote}
           removePlace={this.props.removePlace}
           addPlace={this.props.addPlace}
-          saveList = {this.props.saveList} />
+          saveList={this.props.saveList} />
       </div>
     )
   }

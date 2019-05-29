@@ -12,6 +12,7 @@ import headers from './Helpers/http'
 import auth from "./containers/auth";
 import PrivateRoute from './containers/PrivateRoute';
 import SignUp from './containers/SignUp';
+import FilteredContainer from './containers/FilteredContainer'
 
 class App extends Component {
 
@@ -35,6 +36,7 @@ class App extends Component {
               <PrivateRoute path='/new-list' component={ListFormContainer} />
               <PrivateRoute path="/my-lists" component={MyListsContainer} />
               <PrivateRoute path="/all-lists" component={FullListsContainer} />
+              <PrivateRoute path="/filtered-list" component={FilteredContainer} />
               <Route path="/user-form" component={UserForm} />
               <Route path="/sign-up" component={SignUp} />
               <PrivateRoute path="/:user" component={UserProfile} />
@@ -66,10 +68,11 @@ const Logout = withRouter(({ history }) => {
 
   return (
     <div className="ui inverted menu" style={{ margin: 0 }}>
-      <Link to='/' name='home' className="item">Home</Link>
+      {/* <Link to='/' name='home' className="item">Home</Link> */}
+      <Link to='/all-lists' name='all-lists' className="item">Explore</Link>
       <Link to='/new-list' name='new-list' className="item">Create List</Link>
-      <Link to='/my-lists' name='my-lists' className="item">My Lists</Link>
-      <Link to='/all-lists' name='all-lists' className="item">All Lists</Link>
+      <Link to='/my-lists' name='my-lists' className="item">My Profile</Link>
+      
 
       <div className="right menu">
         <a href="/sign-out" onClick={logOut} className="item">Log Out</a>

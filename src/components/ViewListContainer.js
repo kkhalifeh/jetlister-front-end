@@ -8,7 +8,7 @@ class ViewListContainer extends Component {
     const notes = [...this.props.notes]
     return (
       <div className="ui container" >
-        <div className='ui cards'>
+        <div className='ui four stackable cards'>
           {places.map(place => {
             return (
               <PlaceCardView
@@ -25,11 +25,14 @@ class ViewListContainer extends Component {
         {this.props.editMode ? <div className="extra"> <div className="ui segment">
           <GoogleAutoComplete addPlace={this.props.addPlace} />
         </div> </div> : null}
-        {this.props.editMode ? <div className="extra"> <div
-          className="ui positive bottom attached button"
-          onClick={(e) => this.props.saveList(e)}>
-          Save
-      </div> </div> : null}
+        {this.props.editMode ?
+          <div className="extra">
+            <div
+              className="ui positive bottom attached button"
+              onClick={(e) => this.props.saveList(e)}>
+              Save
+        </div>
+          </div> : null}
       </div>
     )
   }

@@ -16,7 +16,7 @@ class UserForm extends Component {
 
   handleLogIn = (e) => {
     this.setState({
-      logInUser: { ...this.state.logInUser, [e.target.name]: e.target.value }
+      logInUser: { ...this.state.logInUser, [e.target.name]: e.target.value.replace(/\s/g, '') }
     })
   }
 

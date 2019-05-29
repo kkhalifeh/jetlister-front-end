@@ -44,11 +44,14 @@ class PinnedListsContainer extends Component {
     if (pinnnedLists.length > 0) {
       return (
         <div className="ui segment">
+          <div className="ui inverted segment">
+            <h3>Pinned Lists</h3>
+          </div>
           {pinnnedLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
                 <div className="ui labeled button" onClick={(e) => this.removePin(e, list.id)}>
-                  <div className="ui button">
+                  <div className="ui black button">
                     <i className="thumbtack icon"></i> unPin
                   </div>
                 </div>

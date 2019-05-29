@@ -47,7 +47,7 @@ class UserProfile extends Component {
 
     } else {
       return (
-        <div className="ui segment">
+        <div className="ui segment" style={{ marginTop: 25 }}>
           <UserProfileCard data={this.state.slecteduser ? this.state.userLists[0].author : null} lists={this.state.slecteduser ? this.state.userLists.length : null} />
           {userLists.map(list => {
             return (
@@ -58,8 +58,9 @@ class UserProfile extends Component {
                   list={list}
                   places={list.places}
                   notes={list.place_categories} />
+                <br />
                 <div className="ui labeled button" onClick={(e) => this.addPin(e, list.id)}>
-                  <div className="ui button">
+                  <div className="ui black button">
                     <i className="thumbtack icon"></i> Pin List
                 </div>
                   <a className="ui basic label">

@@ -46,10 +46,9 @@ class PlaceCardView extends Component {
 
     const { name, formatted_address, formatted_phone_number, website, place_id, photo_ref } = this.state.placeData;
     return (
-      <div className="card">
-        {this.props.editMode ? "Edit" : null}
+      <div className="card" >
         <div className="image">
-          <img style={{ maxHeight: 163.13 }} src={`https://maps.googleapis.com/maps/api/place/photo?key=${API_KEY}&photoreference=${this.props.photo_ref ? this.props.photo_ref : photo_ref}&maxwidth=400`} />
+          <img style={{ height: 150 }} src={`https://maps.googleapis.com/maps/api/place/photo?key=${API_KEY}&photoreference=${this.props.photo_ref ? this.props.photo_ref : photo_ref}&maxwidth=400`} />
         </div>
         <div className="content">
           <div className="header">{name}</div>

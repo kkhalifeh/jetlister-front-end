@@ -100,12 +100,7 @@ class ListFormContainer extends Component {
 
     } else {
       return (
-        <div className="ui segments">
-          <div className="ui labeled button" onClick={(e) => this.setState({ toDashboard: true })}>
-            <div className="ui button">
-              <i className="times icon"></i> Cancel
-          </div>
-          </div>
+        <div className="ui segments" style={{ marginTop: 25 }}>
           <div className="ui segment">
             <CitySelector citySelector={this.citySelector} />
           </div>
@@ -121,6 +116,11 @@ class ListFormContainer extends Component {
           <div className="ui segment">
             <GoogleAutoComplete addPlace={this.addPlace} />
           </div>
+          <div
+            className="ui negative bottom attached button"
+            onClick={(e) => this.setState({ toDashboard: true })}>
+            Cancel
+        </div>
           <div
             className="ui positive bottom attached button"
             onClick={(e) => this.saveList(e)}>

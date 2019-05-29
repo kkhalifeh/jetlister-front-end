@@ -14,11 +14,13 @@ class MyListsContainer extends Component {
   state = {
     userLists: [],
     editMode: null,
-    editList: null
+    editList: null,
+    userData: null
   }
 
   componentDidMount() {
     this.renderUserLists()
+    this.renderUserinfo()
   }
 
   renderUserLists = () => {
@@ -30,6 +32,18 @@ class MyListsContainer extends Component {
         })
       })
   }
+
+  renderUserinfo = () => {
+    fetch('/users/my_info')
+      .then(res => res.json())
+      .then(data => {
+        this.setState(() => {
+          return { userData: { data } }
+        })
+      })
+
+  }
+
 
   componentWillMount() {
     this.setState({ editMode: false })
@@ -137,27 +151,26 @@ class MyListsContainer extends Component {
     const { userLists } = this.state;
     if (this.state.editMode === false) {
       return (
-        <div className="ui segment" style={{ borderColor: (255, 255, 255) }}>
-          {this.state.userLists.length > 0 ? <div className="ui segment"><GoogleMap userLists={this.state.userLists} /></div> : null}
+        <div className="ui segment" style={{ marginTop: 25 }}>
+          {this.state.userData ? <UserProfileCard data={this.state.userData.data} lists={this.state.userLists.length > 0 ? this.state.userLists.length : null} /> : null}
+          {this.state.userLists.length > 0 ? <div><div className="ui segment"><GoogleMap userLists={this.state.userLists} /> </div> <div className="ui inverted segment"> <h3>My Lists</h3> </div> </div> : null}
           {userLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
-                <div className="ui labeled button" onClick={(e) => this.editList(e, list.id)}>
-                  <div className="ui button">
-                    <i className="pencil alternate icon"></i> Edit List
-                  </div>
-                </div>
-                <div className="ui labeled button" onClick={(e) => this.removeList(e, list.id)}>
-                  <div className="ui red button">
-                    <i className="window close icon"></i> Delete List
-                  </div>
-                </div>
                 <h4>{list.location.city}, {list.location.country}</h4>
+                <div className="ui buttons">
+                  <button className="ui button" onClick={(e) => this.editList(e, list.id)}>Edit</button>
+                  <div className="or"></div>
+                  <button className="ui negative button" onClick={(e) => this.removeList(e, list.id)}>Delete</button>
+                </div>
+                <br />
+                <br />
                 <ViewListContainer
                   list={list}
                   places={list.places}
                   notes={list.list_places} />
-              </div>)
+              </div>
+            )
           })}
           <br />
           <PinnedListsContainer />

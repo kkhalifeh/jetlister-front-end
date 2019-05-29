@@ -34,7 +34,7 @@ class GoogleAutoComplete extends React.Component {
           <div className="ui fluid icon input">
             <input
               {...getInputProps({
-                placeholder: 'Add Place',
+                placeholder: 'Add Place (ex: la esquina soho new york)',
                 className: 'location-search-input',
               })}
             />

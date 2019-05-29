@@ -105,7 +105,7 @@ class SignUp extends Component {
               name="password_confirmation"
               placeholder="Password" />
           </div>
-          <div className="field">
+          {/* <div className="field">
             <div className="ui checkbox">
               <input
                 onChange={this.handleSignUp}
@@ -115,7 +115,7 @@ class SignUp extends Component {
                 className="hidden" />
               <label>I agree to the Terms and Conditions</label>
             </div>
-          </div>
+          </div> */}
           <button
             className="ui button"
             type="submit">Submit</button>
