@@ -30,6 +30,8 @@ class App extends Component {
       <Router>
         <div>
           <Logout />
+          <br />
+          <br />
           <PrivateRoute path='/' exact component={Dashboard} />
           <div className="ui center aligned container">
             <Switch>
@@ -67,7 +69,7 @@ const Logout = withRouter(({ history }) => {
   };
 
   return (
-    <div className="ui inverted menu" style={{ margin: 0 }}>
+    <div className="ui inverted fixed menu" style={{ margin: 0 }}>
       {/* <Link to='/' name='home' className="item">Home</Link> */}
       <img src={process.env.PUBLIC_URL + `/JL2-01_small.png`} alt="" className="item" style={{ backgroundColor: "white" }} />
       <Link to='/all-lists' name='all-lists' className="item">Explore</Link>

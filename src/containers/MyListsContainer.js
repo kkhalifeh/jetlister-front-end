@@ -157,14 +157,14 @@ class MyListsContainer extends Component {
           {userLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
-                <h4>{list.location.city}, {list.location.country}</h4>
-                <div className="ui buttons">
-                  <button className="ui button" onClick={(e) => this.editList(e, list.id)}>Edit</button>
-                  <div className="or"></div>
-                  <button className="ui negative button" onClick={(e) => this.removeList(e, list.id)}>Delete</button>
+                <div className="ui black segment">
+                  <h4>{list.location.city}, {list.location.country}</h4>
+                  <div className="ui buttons">
+                    <button className="ui button" onClick={(e) => this.editList(e, list.id)}>Edit</button>
+                    <div className="or"></div>
+                    <button className="ui negative button" onClick={(e) => this.removeList(e, list.id)}>Delete</button>
+                  </div>
                 </div>
-                <br />
-                <br />
                 <ViewListContainer
                   list={list}
                   places={list.places}

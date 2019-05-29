@@ -25,12 +25,12 @@ class PlaceCardView extends Component {
             placeData: {
               place_id: data.result.place_id,
               formatted_address: data.result.formatted_address,
-              formatted_phone_number: data.result.formatted_phone_number,
+              formatted_phone_number: data.result.international_phone_number,
               name: data.result.name,
               photo_ref: data.result.photos ? data.result.photos[0].photo_reference : null,
               location: data.result.geometry.location,
               website: data.result.website,
-              rating: data.result.rating,
+              rating: data.result.rating
             }
           }
         })
@@ -52,19 +52,21 @@ class PlaceCardView extends Component {
         <div className="image">
           <img style={{ height: 150 }} src={`https://maps.googleapis.com/maps/api/place/photo?key=${API_KEY}&photoreference=${this.props.photo_ref ? this.props.photo_ref : photo_ref}&maxwidth=400`} />
         </div>
-        <div className="content" >
+        <div className="content" style={{ color: "black" }}>
           <div className="header">{name}</div>
           <a href={website} target="_blank" ><div className="meta" style={{ overflow: "hidden" }} >{website}</div></a>
+        </div>
+        <div className="extra">
           <a href={` http://maps.google.com/?q=${formatted_address}`} target="_blank">
-            <div className="description" >
+            <div className="description" style={{ color: "steelblue" }} >
               {formatted_address}
             </div>
           </a>
-        </div>
-        <div className="extra">
+          <br />
           <div className="description" style={{ color: "black" }}>
             {formatted_phone_number}
           </div>
+
         </div>
         <div className="extra">
           Google Rating:

@@ -52,8 +52,9 @@ class UserProfile extends Component {
           {userLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
-                <h4>{list.location.city}, {list.location.country}</h4>
-                <h4>{list.author.username}</h4>
+                <div className="ui inverted segment">
+                  <h4>{list.location.city}, {list.location.country}</h4>
+                </div>
                 <ViewListContainer
                   list={list}
                   places={list.places}

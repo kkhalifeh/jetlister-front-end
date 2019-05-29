@@ -50,13 +50,13 @@ class PinnedListsContainer extends Component {
           {pinnnedLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
-                <div className="ui labeled button" onClick={(e) => this.removePin(e, list.id)}>
-                  <div className="ui black button">
+                <div className="ui black segment">
+                  <h4>{list.list.location.city}, {list.list.location.country}</h4>
+                  <h4>User: {list.list.author.first_name} {list.list.author.last_name}</h4>
+                  <div className="ui button" onClick={(e) => this.removePin(e, list.id)}>
                     <i className="thumbtack icon"></i> unPin
-                  </div>
                 </div>
-                <h4>{list.list.location.city}, {list.list.location.country}</h4>
-                <h4>User: {list.list.author.first_name} {list.list.author.last_name}</h4>
+                </div>
                 <ViewListContainer
                   list={list.list}
                   places={list.list.places}

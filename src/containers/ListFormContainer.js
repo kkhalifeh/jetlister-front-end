@@ -24,12 +24,12 @@ class ListFormContainer extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+
         this.setState({
           places: [...this.state.places, {
             place_id: data.result.place_id,
             formatted_address: data.result.formatted_address,
-            formatted_phone_number: data.result.formatted_phone_number,
+            formatted_phone_number: data.result.international_phone_number,
             name: data.result.name,
             photo_ref: data.result.photos ? data.result.photos[0].photo_reference : null,
             location: data.result.geometry.location,

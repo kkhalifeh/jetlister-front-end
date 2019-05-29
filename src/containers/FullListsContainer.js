@@ -75,13 +75,13 @@ class FullListsContainer extends Component {
           {filteredLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
-                <div className="ui inverted segment">
+                <div className="ui black segment">
                   <h3>{list.location.city}, {list.location.country}</h3>
                   <h4 className="ui header">
                     <img src="https://semantic-ui.com/images/avatar2/large/patrick.png" className="ui circular image" />
                     {list.author.username}
                   </h4>
-                  <Link to={`/${list.author.id}`} name='user' className="ui button" onClick={(e) => this.selectUser(e, list.author.id)}>Select User</Link>
+                  <Link to={`/${list.author.id}`} name='user' className="ui black button" onClick={(e) => this.selectUser(e, list.author.id)}>Select User</Link>
                 </div>
                 <ViewListContainer
                   list={list}
@@ -89,7 +89,7 @@ class FullListsContainer extends Component {
                   notes={list.place_categories} />
                 <br />
                 <div className="ui labeled button" onClick={(e) => this.pinList(e, list.id)}>
-                  <div className="ui black button">
+                  <div className="ui button">
                     <i className="thumbtack icon"></i> Pin List
                 </div>
                   <a className="ui basic label">
@@ -114,13 +114,13 @@ class FullListsContainer extends Component {
           {allLists.map(list => {
             return (
               <div className="ui segment" key={list.id}>
-                <div className="ui inverted segment">
+                <div className="ui black segment">
                   <h3>{list.location.city}, {list.location.country}</h3>
                   <h4 className="ui header">
                     <img src="https://semantic-ui.com/images/avatar2/large/patrick.png" className="ui circular image" />
                     {list.author.username}
                   </h4>
-                  <Link to={`/${list.author.id}`} name='user' className="ui button" onClick={(e) => this.selectUser(e, list.author.id)}>Select User</Link>
+                  <Link to={`/${list.author.id}`} name='user' className="ui black button" onClick={(e) => this.selectUser(e, list.author.id)}>Select User</Link>
                 </div>
                 <ViewListContainer
                   list={list}
@@ -128,7 +128,7 @@ class FullListsContainer extends Component {
                   notes={list.place_categories} />
                 <br />
                 <div className="ui labeled button" onClick={(e) => this.pinList(e, list.id)}>
-                  <div className="ui black button">
+                  <div className="ui button">
                     <i className="thumbtack icon"></i> Pin List
                   </div>
                   <a className="ui basic label">
