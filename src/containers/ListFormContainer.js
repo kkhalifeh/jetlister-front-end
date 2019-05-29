@@ -36,7 +36,7 @@ class ListFormContainer extends Component {
             website: data.result.website,
             rating: data.result.rating,
             category_id: null,
-            note: 'Comment'
+            note: ''
           }]
         })
       });

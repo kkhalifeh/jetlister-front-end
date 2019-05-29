@@ -6,7 +6,7 @@ class MainListContainer extends Component {
     const places = [...this.props.places]
     return (
       <div className="ui container" >
-        <div className='ui cards'>
+        <div className='ui four stackable cards'>
           {places.map(place => {
             return (
               <PlaceCard

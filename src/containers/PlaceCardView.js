@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import StarRatingComponent from 'react-star-rating-component';
 const API_KEY = "AIzaSyC2-olvvVJYlu-5DZZ-EGKMoQ_zZGI3qyg"
 const CORS_LINK = "https://warm-anchorage-35403.herokuapp.com/"
 const CORS_EVERYWHERE = "https://cors-anywhere.herokuapp.com/"
+
 
 class PlaceCardView extends Component {
 
@@ -44,7 +46,7 @@ class PlaceCardView extends Component {
         </div>
       </div >);
 
-    const { name, formatted_address, formatted_phone_number, website, place_id, photo_ref } = this.state.placeData;
+    const { name, formatted_address, formatted_phone_number, website, place_id, photo_ref, rating } = this.state.placeData;
     return (
       <div className="card"  >
         <div className="image">
@@ -52,18 +54,26 @@ class PlaceCardView extends Component {
         </div>
         <div className="content" >
           <div className="header">{name}</div>
-          <div className="meta" >{website}</div>
-          <div className="description">
-            {formatted_address}
-            <br />
+          <a href={website} target="_blank" ><div className="meta" style={{ overflow: "hidden" }} >{website}</div></a>
+          <a href={` http://maps.google.com/?q=${formatted_address}`} target="_blank">
+            <div className="description" >
+              {formatted_address}
+            </div>
+          </a>
+        </div>
+        <div className="extra">
+          <div className="description" style={{ color: "black" }}>
             {formatted_phone_number}
           </div>
         </div>
-        {/* <div className="extra">
-          Rating:
-       <div className="ui star rating" data-rating="4">
+        <div className="extra">
+          Google Rating:
+          <div>
+            <StarRatingComponent value={rating} name={name} />
+            <br />
+            {rating}
           </div>
-        </div> */}
+        </div>
         <div className="extra">
           {!this.props.editMode ? this.props.note.length > 0 ? this.props.note[0].note : null :
             <div>
