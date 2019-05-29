@@ -46,13 +46,13 @@ class PlaceCardView extends Component {
 
     const { name, formatted_address, formatted_phone_number, website, place_id, photo_ref } = this.state.placeData;
     return (
-      <div className="card" >
+      <div className="card"  >
         <div className="image">
           <img style={{ height: 150 }} src={`https://maps.googleapis.com/maps/api/place/photo?key=${API_KEY}&photoreference=${this.props.photo_ref ? this.props.photo_ref : photo_ref}&maxwidth=400`} />
         </div>
-        <div className="content">
+        <div className="content" >
           <div className="header">{name}</div>
-          <div className="meta">{website}</div>
+          <div className="meta" >{website}</div>
           <div className="description">
             {formatted_address}
             <br />
@@ -82,7 +82,7 @@ class PlaceCardView extends Component {
               </div>
             </div>}
         </div>
-      </div>
+      </div >
     )
   }
 }

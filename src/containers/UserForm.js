@@ -50,28 +50,33 @@ class UserForm extends Component {
 
   render() {
     return (
-      <div>
-        <form className="ui form" onSubmit={this.logIn}>
-          <div className="field">
-            <label>Email</label>
-            <input
-              onChange={this.handleLogIn}
-              type="text"
-              name="email"
-              placeholder="Email" />
-          </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              onChange={this.handleLogIn}
-              type="password"
-              name="password"
-              placeholder="Password" />
-          </div>
-          <button
-            className="ui button"
-            type="submit">Sign In</button>
-        </form>
+      <div className="ui segments">
+        <div className="ui segment">
+          <img src={process.env.PUBLIC_URL + `/JL2-01.png`} alt="" style={{ width: 500 }} />
+        </div>
+        <div className="ui segment">
+          <form className="ui form" onSubmit={this.logIn}>
+            <div className="field">
+              <label>Email</label>
+              <input
+                onChange={this.handleLogIn}
+                type="text"
+                name="email"
+                placeholder="Email" />
+            </div>
+            <div className="field">
+              <label>Password</label>
+              <input
+                onChange={this.handleLogIn}
+                type="password"
+                name="password"
+                placeholder="Password" />
+            </div>
+            <button
+              className="ui button"
+              type="submit">Sign In</button>
+          </form>
+        </div>
       </div>
     )
   }

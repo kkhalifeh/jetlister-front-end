@@ -50,6 +50,11 @@ class SignUp extends Component {
   render() {
     if (this.state.toLogin === false) {
       return (
+        <div className="ui segments">
+        <div className="ui segment">
+          <img src={process.env.PUBLIC_URL + `/JL2-01.png`} alt="" style={{ width: 500 }} />
+        </div>
+        <div className="ui segment">
         <form className="ui form" onSubmit={this.signUp}>
           <div className="field">
             <label>Username</label>
@@ -120,6 +125,10 @@ class SignUp extends Component {
             className="ui button"
             type="submit">Submit</button>
         </form>
+
+        </div>
+      </div>
+       
       )
     } else {
       return (

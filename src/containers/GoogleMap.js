@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import uuid from "uuid";
 
-const AnyReactComponent = ({ text }) => <div><i className="flag checkered red icon"></i>{text}</div>;
+const AnyReactComponent = ({ text }) => <div><img src="https://cdn0.iconfinder.com/data/icons/map-3/1024/pin-512.png" style={{ width: 20 }} />{text}</div>;
 
 class GoogleMap extends Component {
 
@@ -23,7 +23,7 @@ class GoogleMap extends Component {
       lat: 30.939567,
       lng: -39.980321
     },
-    zoom: 0
+    zoom: 1
   };
 
   render() {
